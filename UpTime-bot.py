@@ -12,9 +12,9 @@ def write_to_csv_file(my_dict, output_file):
         writer.writeheader()
         for index in my_dict:
             writer.writerow({'Name': index,
-                             'IP Address': my_dict[index][0],
-                             'Response Time': my_dict[index][1],
-                             'Date': my_dict[index][2]})
+                             'IP Address': my_dict[index]['ip'],
+                             'Response Time': my_dict[index]['ms'],
+                             'Date': my_dict[index]['date']})
 
 
 def get_ping_from_host(reader):
@@ -28,11 +28,14 @@ def get_ping_from_host(reader):
         ip = result.split()[2][1:-1]
 
         if result.find('ms') == -1:
-            my_dict[row['Name']] = row['IP Address'], 'No Connection', date
+            my_dict[row['Name']] = {'ip': row['IP Address'],
+                                    'ms': 'No Connection',
+                                    'date': date}
         else:
             ms = result.split()[-1]
-            my_dict[row['Name']] = ip, ms, date
-
+            my_dict[row['Name']] = {'ip': ip,
+                                    'ms': ms,
+                                    'date': date}
     return my_dict
 
 
