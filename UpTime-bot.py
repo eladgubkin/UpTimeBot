@@ -57,7 +57,7 @@ def main():
     if input_file and output_file is not None:
         write_to_csv_file(get_ping_from_host(get_text_from_database(input_file)), output_file)
     else:
-        print 'No file has been found'
+        print('No file has been found')
 
 
 if __name__ == '__main__':
