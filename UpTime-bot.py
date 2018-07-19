@@ -3,40 +3,65 @@ import csv
 import os
 from datetime import datetime
 
+class Service(object):
+    def __init__(self, row, complete_dict):
+        self.row = row
+        self.complete_dict = complete_dict
 
-def write_to_csv_file(my_dict, output_file):
-    fieldnames = ['Name', 'IP Address', 'Response Time', 'Date']
-
-    with open(output_file, 'w') as result:
-        writer = csv.DictWriter(result, fieldnames=fieldnames)
-        writer.writeheader()
-        for index in my_dict:
-            writer.writerow({'Name': index,
-                             'IP Address': my_dict[index]['ip'],
-                             'Response Time': my_dict[index]['ms'],
-                             'Date': my_dict[index]['date']})
-
-
-def get_ping_from_host(reader):
-    my_dict = {}
-
-    for row in reader:
-        hostname = row['IP Address']
+    def ping(self):
+        hostname = self.row['IP Address']
         response = os.popen('ping ' + hostname)
         date = str(datetime.now())[:-7]
         result = str(response.read())
         ip = result.split()[2][1:-1]
 
         if result.find('ms') == -1:
-            my_dict[row['Name']] = {'ip': row['IP Address'],
-                                    'ms': 'No Connection',
-                                    'date': date}
+            self.complete_dict[self.row['Name']] = {'ip': self.row['IP Address'],
+                                                    'Response': 'No Connection',
+                                                    'date': date}
         else:
             ms = result.split()[-1]
-            my_dict[row['Name']] = {'ip': ip,
-                                    'ms': ms,
-                                    'date': date}
-    return my_dict
+            self.complete_dict[self.row['Name']] = {'ip': ip,
+                                                    'Response': ms,
+                                                    'date': date}
+        return self.complete_dict
+
+    def traceroute(self):
+        hostname = self.row['IP Address']
+        response = os.popen('tracert ' + hostname)
+        date = str(datetime.now())[:-7]
+        result = response.readlines()
+        hops = len(result) - 6
+
+        self.complete_dict[self.row['Name']] = {'ip': self.row['IP Address'],
+                                                'Response': hops,
+                                                'date': date}
+        return self.complete_dict
+
+
+def write_to_csv_file(complete_dict, output_file):
+    fieldnames = ['Name', 'IP Address', 'Response', 'Date']
+
+    with open(output_file, 'w') as result:
+        writer = csv.DictWriter(result, fieldnames=fieldnames)
+        writer.writeheader()
+        for index in complete_dict:
+            writer.writerow({'Name': index,
+                             'IP Address': complete_dict[index]['ip'],
+                             'Response': complete_dict[index]['Response'],
+                             'Date': complete_dict[index]['date']})
+
+
+def define_service(reader, complete_dict):
+    for row in reader:
+        service = Service(row, complete_dict)
+        if row['Service'] == 'ping':
+            service.ping()
+
+        elif row['Service'] == 'traceroute':
+            service.traceroute()
+
+    return complete_dict
 
 
 def get_text_from_database(input_file):
@@ -48,6 +73,7 @@ def get_text_from_database(input_file):
 def main():
     input_file = None
     output_file = None
+    complete_dict = {}
 
     try:
         _, input_file, output_file = sys.argv
@@ -55,7 +81,11 @@ def main():
         pass
 
     if input_file and output_file is not None:
-        write_to_csv_file(get_ping_from_host(get_text_from_database(input_file)), output_file)
+        write_to_csv_file(
+            define_service(
+                get_text_from_database(
+                    input_file), complete_dict), output_file)
+
     else:
         print('No file has been found')
 

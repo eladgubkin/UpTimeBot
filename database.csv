@@ -1,11 +1,11 @@
 Name,IP Address,Service,Frequency
-Google,google.com,ping,60
-Gmail,gmail.com,ping,60
+Google,google.com,traceroute,60
+Gmail,gmail.com,traceroute,60
 ynet,ynet.co.il,ping,60
-YouTube,youtube.com,ping,60
+YouTube,youtube.com,traceroute,60
 Wikipedia,wikipedia.org,ping,60
 Amazon,amazon.com,ping,60
-Twitter,twitter.com,ping,60
+Twitter,twitter.com,traceroute,60
 Netflix,netflix.com,ping,60
 Twitch,twitch.tv,ping,60
-ebay,ebay.com,ping,60
+ebay,ebay.com,traceroute,60
