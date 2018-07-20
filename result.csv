@@ -1,1 +1,11 @@
-Name,IP Address,Response,DateGoogle,216.58.208.46,traceroute: 17 hops,2018-07-20 14:20:24Gmail,172.217.16.197,traceroute: 17 hops,2018-07-20 14:21:43ynet,23.212.234.111,ping: 84ms,2018-07-20 14:23:09YouTube,216.58.214.110,traceroute: 17 hops,2018-07-20 14:23:12Wikipedia,91.198.174.192,ping: 84ms,2018-07-20 14:24:37Amazon,176.32.103.205,ping: 160ms,2018-07-20 14:24:40Twitter,104.244.42.129,traceroute: 7 hops,2018-07-20 14:24:47Netflix,34.247.120.239,No Connection,2018-07-20 14:25:20Twitch,151.101.2.167,ping: 77ms,2018-07-20 14:25:39ebay,66.211.162.12,traceroute: 30 hops,2018-07-20 14:25:42
+Name,IP Address,Response,Date
+Google,172.217.21.238,traceroute: 17 hops,2018-07-20 15:07:40
+Gmail,172.217.18.165,traceroute: 19 hops,2018-07-20 15:09:11
+ynet,104.83.3.208,ping: 88ms,2018-07-20 15:10:28
+YouTube,172.217.22.14,traceroute: 18 hops,2018-07-20 15:10:31
+Wikipedia,91.198.174.192,ping: 82ms,2018-07-20 15:11:54
+Amazon,176.32.98.166,ping: 166ms,2018-07-20 15:12:01
+Twitter,104.244.42.193,traceroute: 7 hops,2018-07-20 15:12:08
+Netflix,52.19.113.209,No Connection,2018-07-20 15:12:42
+Twitch,151.101.194.167,ping: 78ms,2018-07-20 15:13:01
+ebay,66.135.209.52,traceroute: 30 hops,2018-07-20 15:13:04
