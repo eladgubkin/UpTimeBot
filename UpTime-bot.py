@@ -23,7 +23,7 @@ class Service(object):
                                                     'Response': 'No Connection',
                                                     'date': date}
         else:
-            ms = result.split()[-1]
+            ms = 'ping: ' + result.split()[-1]
             self.complete_dict[self.row['Name']] = {'ip': ip,
                                                     'Response': ms,
                                                     'date': date}
@@ -34,7 +34,7 @@ class Service(object):
         hostname = self.row['IP Address']
         response = os.popen('tracert ' + hostname)
         date = str(datetime.now())[:-7]
-        hops = str(len(response.readlines()) - 6) + ' hops'
+        hops = 'traceroute: ' + str(len(response.readlines()) - 6) + ' hops'
         ip = socket.gethostbyname(hostname)
 
         self.complete_dict[self.row['Name']] = {'ip': ip,
