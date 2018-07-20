@@ -1,22 +1,25 @@
 import sys
 import csv
 import os
+import socket
 from datetime import datetime
+
 
 class Service(object):
     def __init__(self, row, complete_dict):
         self.row = row
         self.complete_dict = complete_dict
 
+
     def ping(self):
         hostname = self.row['IP Address']
         response = os.popen('ping ' + hostname)
         date = str(datetime.now())[:-7]
         result = str(response.read())
-        ip = result.split()[2][1:-1]
+        ip = socket.gethostbyname(hostname)
 
         if result.find('ms') == -1:
-            self.complete_dict[self.row['Name']] = {'ip': self.row['IP Address'],
+            self.complete_dict[self.row['Name']] = {'ip': ip,
                                                     'Response': 'No Connection',
                                                     'date': date}
         else:
@@ -26,14 +29,15 @@ class Service(object):
                                                     'date': date}
         return self.complete_dict
 
+
     def traceroute(self):
         hostname = self.row['IP Address']
         response = os.popen('tracert ' + hostname)
         date = str(datetime.now())[:-7]
-        result = response.readlines()
-        hops = len(result) - 6
+        hops = str(len(response.readlines()) - 6) + ' hops'
+        ip = socket.gethostbyname(hostname)
 
-        self.complete_dict[self.row['Name']] = {'ip': self.row['IP Address'],
+        self.complete_dict[self.row['Name']] = {'ip': ip,
                                                 'Response': hops,
                                                 'date': date}
         return self.complete_dict
