@@ -3,45 +3,52 @@ import csv
 import os
 import socket
 from datetime import datetime
-
+import requests
 
 class Service(object):
     def __init__(self, row, complete_dict):
         self.row = row
         self.complete_dict = complete_dict
 
-
     def ping(self):
-        hostname = self.row['IP Address']
-        response = os.popen('ping ' + hostname)
+        response = os.popen('ping ' + self.row['IP Address'])
         date = str(datetime.now())[:-7]
         result = str(response.read())
-        ip = socket.gethostbyname(hostname)
+        ip = socket.gethostbyname(self.row['IP Address'])
+
 
         if result.find('ms') == -1:
             self.complete_dict[self.row['Name']] = {'ip': ip,
-                                                    'Response': 'No Connection',
+                                                    'response': 'ping: No Connection',
                                                     'date': date}
         else:
             ms = 'ping: ' + result.split()[-1]
             self.complete_dict[self.row['Name']] = {'ip': ip,
-                                                    'Response': ms,
+                                                    'response': ms,
                                                     'date': date}
         return self.complete_dict
 
-
     def traceroute(self):
-        hostname = self.row['IP Address']
-        response = os.popen('tracert ' + hostname)
+        response = os.popen('tracert ' + self.row['IP Address'])
         date = str(datetime.now())[:-7]
         hops = 'traceroute: ' + str(len(response.readlines()) - 6) + ' hops'
-        ip = socket.gethostbyname(hostname)
+        ip = socket.gethostbyname(self.row['IP Address'])
 
         self.complete_dict[self.row['Name']] = {'ip': ip,
-                                                'Response': hops,
+                                                'response': hops,
                                                 'date': date}
         return self.complete_dict
 
+    def get_http(self):
+        req = requests.get(r'http://' + self.row['IP Address'])
+        date = str(datetime.now())[:-7]
+        ip = socket.gethostbyname(self.row['IP Address'])
+        response = 'HTTP GET: ' + str(req.status_code)
+
+        self.complete_dict[self.row['Name']] = {'ip': ip,
+                                                'response': response,
+                                                'date': date}
+        return self.complete_dict
 
 def write_to_csv_file(complete_dict, output_file):
     fieldnames = ['Name', 'IP Address', 'Response', 'Date']
@@ -52,7 +59,7 @@ def write_to_csv_file(complete_dict, output_file):
         for index in complete_dict:
             writer.writerow({'Name': index,
                              'IP Address': complete_dict[index]['ip'],
-                             'Response': complete_dict[index]['Response'],
+                             'Response': complete_dict[index]['response'],
                              'Date': complete_dict[index]['date']})
 
 
@@ -64,6 +71,12 @@ def define_service(reader, complete_dict):
 
         elif row['Service'] == 'traceroute':
             service.traceroute()
+
+        elif row['Service'].lower() == 'get':
+            service.get_http()
+
+        else:
+            print('\033[1m' + row['Service'] + '\033[0m' + ' is not a Service.')
 
     return complete_dict
 

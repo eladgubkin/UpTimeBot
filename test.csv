@@ -1,3 +1,3 @@
 Name,IP Address,Service,Frequency
-ynet,ynet.co.il,traceroute,60
-Google,google.co.il,ping,60
+Google,google.com,ping,60
+ynet,ynet.co.il,ping, 60
