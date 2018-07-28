@@ -50,6 +50,7 @@ class Service(object):
                                                 'date': date}
         return self.complete_dict
 
+
 def write_to_csv_file(complete_dict, output_file):
     fieldnames = ['Name', 'IP Address', 'Response', 'Date']
 
