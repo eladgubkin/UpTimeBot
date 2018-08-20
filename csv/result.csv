@@ -1,0 +1,11 @@
+Name,IP Address,Response,Date
+Google,172.217.22.46,traceroute: 18 hops,2018-08-20 02:45:09
+Gmail,216.58.204.69,HTTP GET: 200,2018-08-20 02:46:20
+ynet,92.123.254.210,ping: 111ms,2018-08-20 02:46:20
+YouTube,172.217.18.174,HTTP GET: 200,2018-08-20 02:46:26
+Wikipedia,91.198.174.192,ping: 89ms,2018-08-20 02:46:26
+Amazon,205.251.242.103,ping: 165ms,2018-08-20 02:46:29
+Twitter,104.244.42.65,traceroute: 9 hops,2018-08-20 02:46:36
+Netflix,52.51.95.138,ping: No Connection,2018-08-20 02:47:16
+Twitch,151.101.194.167,ping: 100ms,2018-08-20 02:47:35
+ebay,66.211.185.25,HTTP GET: 200,2018-08-20 02:47:40
