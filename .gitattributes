@@ -1,5 +1,2 @@
-# Auto detect text files and perform LF normalization
-* text=auto
-vim: 
-syntax=python
-vim: set syntax=python:
+static/* linguist-vendored
+templates/* linguist-vendored
