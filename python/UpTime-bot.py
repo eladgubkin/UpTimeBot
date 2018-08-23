@@ -77,8 +77,7 @@ def define_service(reader, complete_dict):
             service.get_http()
 
         else:
-            print('\033[1m' + row['Service'] +
-                  '\033[0m' + ' is not a Service.')
+            print(row['Service'] + ' is not a Service.')
 
     return complete_dict
 
@@ -93,11 +92,6 @@ def main():
     input_file = 'UpTime-bot/csv/database.csv'
     output_file = 'UpTime-bot/csv/result.csv'
     complete_dict = {}
-
-    # try:
-    #     _, input_file, output_file = sys.argv
-    # except ValueError:
-    #     pass
 
     if input_file and output_file is not None:
         write_to_csv_file(
