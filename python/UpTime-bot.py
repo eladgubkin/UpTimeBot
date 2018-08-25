@@ -89,8 +89,8 @@ def get_text_from_database(input_file):
 
 
 def main():
-    input_file = 'UpTime-bot/csv/database.csv'
-    output_file = 'UpTime-bot/csv/result.csv'
+    input_file = 'UpTimebot/csv/database.csv'
+    output_file = 'UpTimebot/csv/result.csv'
     complete_dict = {}
 
     if input_file and output_file is not None:
